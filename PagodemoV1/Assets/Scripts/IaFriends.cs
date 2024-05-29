@@ -11,10 +11,14 @@ public class IaFriends : MonoBehaviour
     [SerializeField] private bool IsFriends;
     [SerializeField] private bool PlayerIsRange;
 
+    public PlayerMovement _PlayerMovement;
+
     void Start()
     {
         Friends = GetComponent<NavMeshAgent>();
         Player = GameObject.FindWithTag("Player").transform;
+
+        _PlayerMovement = Player.GetComponent<PlayerMovement>();
     }
     void Update()
     {
