@@ -23,11 +23,7 @@ public class IaEmos : MonoBehaviour
     {
         if (other.CompareTag("Pagode"))
         {
-            //StartCoroutine(DestroyFriend());
-        }
-        if (other.CompareTag("Player") && Input.GetKeyDown(KeyCode.K))
-        {
-            DestroyEmo();
+            StartCoroutine(DestroyFriend());
         }
     }
     IEnumerator DestroyFriend()
@@ -36,8 +32,8 @@ public class IaEmos : MonoBehaviour
         _GameManager.NumOfFollowFriends--;
         Destroy(gameObject);
     }
-    public void DestroyEmo()
-    {
-        Destroy(gameObject);
-    }
+    //public void DestroyEmo()
+    //{
+    //    Destroy(gameObject);
+    //}
 }

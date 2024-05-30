@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Pagode
   - Emos
+  - SpawnEmos
   layers:
   - Default
   - TransparentFX

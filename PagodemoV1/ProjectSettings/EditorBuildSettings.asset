@@ -8,4 +8,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/SampleScene.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
+  - enabled: 1
+    path: Assets/Scenes/TelaVitoria.unity
+    guid: 1461d946bce462e49b01f425207866eb
+  - enabled: 1
+    path: Assets/Scenes/TelaDerrota.unity
+    guid: f4645e8077412664e9da4c3322275e9e
   m_configObjects: {}

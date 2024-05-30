@@ -8,14 +8,13 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Rigidbody _rigidbody;
 
     [SerializeField] private GameManager _GameManager;
-    [SerializeField] private IaEmos _IaEmos;
+    public bool PlayerDestroyEmos;
 
 
     void Start()
     {
         _rigidbody = GetComponent<Rigidbody>();
         _GameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
-        _IaEmos = GameObject.Find("Emos").GetComponent<IaEmos>();
     }
 
     void Update()
@@ -29,7 +28,13 @@ public class PlayerMovement : MonoBehaviour
         {
             transform.rotation = Quaternion.LookRotation(Movement);
         }
+
+        if (PlayerDestroyEmos && Input.GetKeyDown(KeyCode.K))
+        {
+            DestroyEmos();
+        }
     }
+
     void FixedUpdate()
     {
         float MoveHorizontal = Input.GetAxis("Horizontal");
@@ -41,9 +46,27 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Emos") && Input.GetKeyDown(KeyCode.K))
+        if (other.CompareTag("Emos"))
         {
-            _IaEmos.DestroyEmo();
+            PlayerDestroyEmos = true;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        PlayerDestroyEmos = false;
+    }
+
+    private void DestroyEmos()
+    {
+        Collider[] colliders = Physics.OverlapSphere(transform.position, 1f); // Change 1f to the appropriate radius
+        foreach (Collider collider in colliders)
+        {
+            if (collider.CompareTag("Emos"))
+            {
+                Destroy(collider.gameObject);
+                break; // Exit loop after destroying the first Emos object
+            }
         }
     }
 }
