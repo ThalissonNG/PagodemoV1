@@ -11,14 +11,15 @@ public class IaFriends : MonoBehaviour
     [SerializeField] private bool IsFriends;
     [SerializeField] private bool PlayerIsRange;
 
-    public PlayerMovement _PlayerMovement;
+    [SerializeField] GameManager _GameManager;
+
+    private bool HasCounted = false;
 
     void Start()
     {
         Friends = GetComponent<NavMeshAgent>();
         Player = GameObject.FindWithTag("Player").transform;
-
-        _PlayerMovement = Player.GetComponent<PlayerMovement>();
+        _GameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
     void Update()
     {
@@ -43,6 +44,11 @@ public class IaFriends : MonoBehaviour
         if (PlayerIsRange && Input.GetKeyDown(KeyCode.I))
         {
             IsFriends = true;
+            if (!HasCounted)
+            {
+                _GameManager.FollowPlayer();
+                HasCounted = true;  // Garante que a contagem só aumente uma vez
+            }
         }
 
         if (IsFriends)

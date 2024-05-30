@@ -4,14 +4,18 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public float MoveSpeed = 5f;
+    [SerializeField] private float MoveSpeed = 7f;
     [SerializeField] private Rigidbody _rigidbody;
-    public int NumOfAliados;
+
+    [SerializeField] private GameManager _GameManager;
+    [SerializeField] private IaEmos _IaEmos;
+
 
     void Start()
     {
-        NumOfAliados = 0;
         _rigidbody = GetComponent<Rigidbody>();
+        _GameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        _IaEmos = GameObject.Find("Emos").GetComponent<IaEmos>();
     }
 
     void Update()
@@ -35,9 +39,11 @@ public class PlayerMovement : MonoBehaviour
         _rigidbody.velocity = Movement * MoveSpeed;
     }
 
-    public void ColetouAliados()
+    private void OnTriggerEnter(Collider other)
     {
-        Debug.Log(NumOfAliados);
-        NumOfAliados = NumOfAliados + 1;
+        if (other.CompareTag("Emos") && Input.GetKeyDown(KeyCode.K))
+        {
+            _IaEmos.DestroyEmo();
+        }
     }
 }
